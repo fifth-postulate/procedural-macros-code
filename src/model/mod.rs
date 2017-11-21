@@ -1,3 +1,4 @@
+use std::ops::Drop;
 use std::collections::HashMap;
 use std::fmt::{Display, Formatter, self};
 
@@ -20,6 +21,12 @@ impl Friend {
 impl Display for Friend {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         write!(f, "{} plays {} and eats {}", self.name, self.character, self.favourite_snack)
+    }
+}
+
+impl Drop for Friend {
+    fn drop(&mut self) {
+        println!("Friend dropped");
     }
 }
 
