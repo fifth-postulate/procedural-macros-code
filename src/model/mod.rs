@@ -1,5 +1,29 @@
 use std::collections::HashMap;
 use std::fmt::{Display, Formatter, self};
+use std::iter::IntoIterator;
+
+pub struct Group {
+    friends: Vec<Friend>,
+}
+
+impl Group {
+    pub fn new() -> Group {
+        Group { friends: Vec::new() }
+    }
+
+    pub fn befriend(&mut self, friend: Friend) {
+        self.friends.push(friend)
+    }
+}
+
+impl IntoIterator for Group {
+    type Item = Friend;
+    type IntoIter = ::std::vec::IntoIter<Friend>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.friends.into_iter()
+    }
+}
 
 pub struct Friend {
     name: String,

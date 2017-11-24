@@ -10,15 +10,15 @@ fn main() {
     }
 }
 
-fn gurps_friends() -> Vec<Friend> {
-    let mut friends = Vec::new();
+fn gurps_friends() -> Group {
+    let mut friends = Group::new();
 
-    friends.push(marcel());
-    friends.push(meron());
-    friends.push(mink());
-    friends.push(paul());
-    friends.push(robin());
-    friends.push(sep());
+    friends.befriend(marcel());
+    friends.befriend(meron());
+    friends.befriend(mink());
+    friends.befriend(paul());
+    friends.befriend(robin());
+    friends.befriend(sep());
 
     friends
 }
