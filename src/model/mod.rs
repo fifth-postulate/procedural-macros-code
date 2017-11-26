@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::fmt::{Display, Formatter, self};
 use std::iter::{IntoIterator, Iterator};
 
+#[derive(AnnounceDrop)]
 pub struct Group {
     pub friends: Vec<Friend>,
 }
