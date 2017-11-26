@@ -52,7 +52,7 @@ impl Iterator for GroupIterator {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, AnnounceDrop)]
 pub struct Friend {
     name: String,
     character: Character,
