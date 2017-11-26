@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 use std::fmt::{Display, Formatter, self};
-use std::iter::IntoIterator;
+use std::iter::{IntoIterator, Iterator};
 
 pub struct Group {
-    friends: Vec<Friend>,
+    pub friends: Vec<Friend>,
 }
 
 impl Group {
@@ -18,13 +18,40 @@ impl Group {
 
 impl IntoIterator for Group {
     type Item = Friend;
-    type IntoIter = ::std::vec::IntoIter<Friend>;
+    type IntoIter = GroupIterator;
 
     fn into_iter(self) -> Self::IntoIter {
-        self.friends.into_iter()
+        GroupIterator::new(self)
     }
 }
 
+pub struct GroupIterator {
+    group: Group,
+    index: usize,
+}
+
+impl GroupIterator {
+    fn new(group: Group) -> GroupIterator {
+        GroupIterator { group, index : 0 }
+    }
+}
+
+impl Iterator for GroupIterator {
+    type Item = Friend;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let index = self.index;
+        self.index += 1;
+
+        if index < self.group.friends.len() {
+            Some(self.group.friends[index].clone())
+        } else {
+            None
+        }
+    }
+}
+
+#[derive(Clone)]
 pub struct Friend {
     name: String,
     character: Character,
@@ -47,6 +74,7 @@ impl Display for Friend {
     }
 }
 
+#[derive(Clone)]
 pub struct Character {
     name: String,
     attributes: HashMap<Attribute, u8>,
@@ -128,7 +156,7 @@ impl CharacterBuilder {
     }
 }
 
-#[derive(PartialEq, Eq, Hash)]
+#[derive(Clone, PartialEq, Eq, Hash)]
 pub enum Attribute {
     IQ,
     ST,
@@ -147,6 +175,7 @@ impl Display for Attribute {
     }
 }
 
+#[derive(Clone)]
 pub struct Snack {
     name: String
 }
