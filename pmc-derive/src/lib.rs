@@ -10,11 +10,12 @@ pub fn announce_drop(input: TokenStream) -> TokenStream {
 
     let ast = syn::parse_derive_input(&source).unwrap();
     let name = &ast.ident;
+    let call_name = name.to_string();
 
     quote!(
         impl Drop for #name {
             fn drop(&mut self) {
-                println!("#name dropped");
+                println!("{} dropped", #call_name);
             }
         }
     ).parse().unwrap()
